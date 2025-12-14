@@ -1,0 +1,280 @@
+:root {
+    --primary50: #e7f5f4;
+    --primary500: #129990;
+    --primary600: #108b83;
+    --primary700: #0d6d66;
+    --primary800: #0a544f;
+    --primary900: #08403c;
+    --secondary500: #127499;
+    --secondary600: #106a8b;
+    --secondary700: #0d526d;
+    --secondary800: #0a4054;
+    --secondary900: #083140;
+    --teritary500: #996612;
+    --teritary600: #8b5d10;
+    --teritary700: #6d480d;
+    --teritary800: #54380a;
+    --teritary900: #402b08;
+    --text: #303030;
+}
+
+body {
+    font-family: "Figtree", sans-serif;
+    color: #2d3a3a;
+}
+
+.navbar {
+    background-color: #e7f5f4;
+    padding: 1rem 0;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navbar-brand .title {
+    color: var(--primary500);
+    font-weight: 700;
+}
+
+.logo-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.navbar-nav .nav-link {
+    color: #2d3a3a;
+    font-weight: 500;
+    padding: 1rem 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary500);
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--primary500);
+    font-weight: 700;
+}
+
+.navbar .dropdown-toggle::after {
+    display: none !important;
+}
+
+.card-title {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.dropdown-icon {
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+.nav-item.dropdown.show .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu .dropdown-item {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    color: var(--primary500);
+    font-weight: 700;
+    background-color: transparent;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    color: var(--primary500);
+    font-weight: 700;
+}
+
+.list-group-item.active i {
+    color: var(--primary500);
+}
+
+.list-group-item a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.list-group-item:hover a {
+    color: var(--primary500);
+}
+
+.list-group-item.active a {
+    color: white;
+}
+
+.list-group-item i {
+    margin-right: 8px;
+}
+
+.page-title {
+    color: var(--secondary500);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.text-teal {
+    color: var(--primary500);
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb-item a {
+    color: var(--primary500);
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: var(--secondary500);
+}
+
+.content-image {
+    width: 100%;
+    height: 20rem;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.content-text p {
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-text strong {
+    color: var(--primary500);
+}
+
+.mission-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.mission-number {
+    width: 20px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.keunggulan-card {
+    border: 1px solid var(--primary500);
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+.keunggulan-card .text-keunggulan {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--primary500);
+}
+
+.keunggulan-card:hover {
+    background-color: var(--primary50);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.keunggulan-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto;
+    border: 1px solid var(--teritary500);
+    border-radius: 100%;
+}
+
+.facility-card {
+    transition: 0.2s ease;
+}
+
+.facility-card img {
+    height: 120px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.facility-card:hover {
+    transform: translateY(-3px);
+}
+
+.facility-title {
+    color: var(--primary500);
+}
+
+footer {
+    background-color: var(--primary500);
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+
+footer .logo-circle img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+footer h6 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.footer-icon {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+}
+
+.btn-register {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+}
+
+.btn-register:hover {
+    background-color: white;
+    color: var(--primary500);
+    border-color: white;
+}

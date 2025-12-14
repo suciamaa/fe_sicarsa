@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrasah Ibtidaiyyah - Pondok Pesantren Al-Falah</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Fonts - Figtree -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../sub.nav/publikasi/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../../assets/logo.png" class="logo-img" alt="Logo Pondok">
+                <span class="title">Pondok Pesantren Al-Falah</span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" 
+                        href="#" id="tentangDropdown" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            Tentang Kami
+                            <i class="bi bi-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="tentangDropdown">
+                            <li><a class="dropdown-item" href="../tentang/sejarah.html">Sejarah</a></li>
+                            <li><a class="dropdown-item" href="../tentang/visi-misi.html">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="../tentang/pendiri-institusi.html">Pendiri Institusi</a></li>
+                            <li><a class="dropdown-item" href="../tentang/keunggulan.html">Keunggulan</a></li>
+                            <li><a class="dropdown-item" href="../tentang/fasilitas.html">Fasilitas</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" 
+                        href="#" id="pembinaanDropdown" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            Pembinaan Santri
+                            <i class="bi bi-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="pembinaanDropdown">
+                            <li><a class="dropdown-item" href="../pembinaan/k-harian.html">Kegiatan Harian</a></li>
+                            <li><a class="dropdown-item" href="../pembinaan/k-tahunan.html">Kegiatan Tahunan</a></li>
+                            <li><a class="dropdown-item" href="../pembinaan/ekstrakurikuler.html">Ekstrakurikuler</a></li>
+                            <li><a class="dropdown-item" href="../pembinaan/pembelajaran.html">Program Pembelajaran</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" 
+                        href="#" id="pendidikanDropdown" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            Pendidikan
+                            <i class="bi bi-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="pendidikanDropdown">
+                            <li><a class="dropdown-item" href="../pendidikan/pondok-tahfidzul.html">Pondok Tahfidzul Qur'an</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/pondok-putra.html">Pondok Putra</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/pondok-putri.html">Pondok Putri</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/madrasah-diniyyah.html">Madrasah Diniyyah</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/madrasah-qiro'ati.html">Madrasah Qiro'ati</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/madrasah-ibtidaiyyah.html">Madrasah Ibtidaiyyah</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/madrasah-tsanawiyah.html">Madrasah Tsanawiyyah</a></li>
+                            <li><a class="dropdown-item" href="../pendidikan/madrasah-aliyah.html">Madrasah Aliyah</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1 active" 
+                        href="#" id="publikasiDropdown" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            Publikasi
+                            <i class="bi bi-chevron-down dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="publikasiDropdown">
+                            <li><a class="dropdown-item" href="../publikasi/berita.html">Berita Pesantren</a></li>
+                            <li><a class="dropdown-item" href="../publikasi/galeri.html">Galeri Pesantren</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row gx-6 py-2">
+                <!-- Left Sidebar - List Group -->
+                <div class="col-lg-4">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <h3 class="card-title text-teal mb-4"><strong>Publikasi</strong></h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item active">
+                                    <i class="bi bi-chevron-right"></i>
+                                    <span>Berita Pesantren</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-chevron-right"></i>
+                                    <a href="../publikasi/galeri.html">Galeri Pesantren</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Main Content -->
+                <div class="col-lg-8">
+                    <h1 class="page-title">Berita Pesantren</h1>
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Publikasi</li>
+                        </ol>
+                    </nav>
+
+                    <!-- ===== HERO NEWS ===== -->
+                    <div class="card text-white mb-4 border-0">
+                        <img src="../../assets/berita-hero.png" class="card-img hero-news-img" alt="...">
+                        <div class="card-img-overlay p-4">
+                            <span class="badge-utama mt-1">Berita Utama</span>
+                            <h2 class="fw-bold justify-text mt-4">Upacara Hari Santri Nasional 2025 di Pondok Pesantren Al-Falah Putak</h2>
+                            <p class="mt-4 mb-0 text-hero-news">Keluarga besar Pondok Pesantren Al-Falah Putak memperingati Hari Santri Nasional 2025 dengan penuh khidmat dan semangat kebangsaan. Tema “Mengawal Indonesia Merdeka Menuju Peradaban Dunia” menjadi pengingat akan peran penting santri bagi bangsa.</p>
+                            <a href="#" class="btn btn-hero-news rounded-2 px-2 mt-4">Lihat Selengkapnya</a>
+                        </div>
+                    </div>
+
+                    <!-- ===== BERITA TERBARU ===== -->
+                    <h4 class="mt-4 mb-4 text-cyan"><strong>Berita Terbaru</strong></h4>
+                    <div id="news-latest" class="row g-3">
+                        <!-- konten akan diisi oleh JS -->
+                    </div>
+
+                    <h4 class="mt-4 mb-4 text-cyan"><strong>Berita Lainnya</strong></h4>
+                    <div id="news-others" class="row g-1">
+                        <!-- konten lain akan diisi oleh JS -->
+                    </div>
+                    <div class="row g-1">
+                        <div class="card border-0">
+                            <div class="row mb-3 g-3">
+                                <div class="col-4">
+                                    <img src="../../assets/b4.png" class="news-img" alt="">
+                                </div>
+                                <div class="col-8 flex-column justify-content-between">
+                                    <h5 class="fw-bold">Semarak Perlombaan Akhirussanah 1445/1446 H di Pesantren Al-Falah Putak</h5>
+                                    <p class="text-news">Kegiatan tahunan untuk mengasah kemampuan, memperkuat semangat belajar, dan menumbuhkan jiwa kompetitif santri dalam meraih prestasi dan kebaikan.</p>
+                                    <p class="text-muted small mb-2">08:50 | 12 September 2024</p>
+                                    <a href="#" class="btn btn-teal rounded-2 px-2">Lihat Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="row mb-3 g-3">
+                                <div class="col-4">
+                                    <img src="../../assets/b5.png" class="news-img" alt="">
+                                </div>
+                                <div class="col-8 flex-column justify-content-between">
+                                    <h5 class="fw-bold">Tasyakuran dan Pembagian Raport Siswa Madrasah Ibtidaiyyah Al-Falah Putak</h5>
+                                    <p class="text-news">Madrasah Ibtidaiyah Al-Falah Putak menggelar acara tasyakuran tuntas belajar dan pembagian raport sebagai bentuk apresiasi atas perjalanan belajar siswa kelas VI serta dukungan peran orang tua</p>
+                                    <p class="text-muted small mb-2">08:50 | 21 Juni 2025</p>
+                                    <a href="#" class="btn btn-teal rounded-2 px-2">Lihat Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="row mb-3 g-3">
+                                <div class="col-4">
+                                    <img src="../../assets/b6.png" class="news-img" alt="">
+                                </div>
+                                <div class="col-8 flex-column justify-content-between">
+                                    <h5 class="fw-bold">Pelaksanaan Manasik Haji 2025: Santri Al-Falah Putak Antusias Menjalankan Simulasi Ibadah Haji</h5>
+                                    <p class="text-news">Kegiatan manasik haji di Pondok Pesantren Al-Falah Putak berlangsung khidmat dan penuh semangat, menjadi pembekalan penting bagi para santri dalam memahami tata cara ibadah haji yang sesungguhnya</p>
+                                    <p class="text-muted small mb-2">08:50 | 08 Juni 2025</p>
+                                    <a href="#" class="btn btn-teal rounded-2 px-2">Lihat Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div> 
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center gap-2 mt-5 mb-5">
+                                <li class="page-item">
+                                <a class="page-link px-3 py-2" href="#">Sebelumnya</a>
+                                </li>
+                                <li class="page-item active">
+                                <a class="page-link px-3 py-2" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link px-3 py-2" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link px-3 py-2" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link px-3 py-2" href="#">Lanjutan</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <!-- Column 1: School Information -->
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="logo-circle"><img src="../../assets/logo.png" class="logo-img" alt="Logo Pondok"></div>
+                        <div>
+                            <h6 class="mb-0">Pondok Pesantren Al-Falah Putak</h6>
+                        </div>
+                    </div>
+                    <p class="mb-3">
+                        RF4P+F89, Putak, Kec. Gelumbang, Kabupaten Muara Enim, Sumatera Selatan 31171
+                    </p>
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="#" aria-label="WhatsApp"><i class="bi bi-telephone-fill footer-icon"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram footer-icon"></i></a>
+                        <a href="#" aria-label="Email"><i class="bi bi-envelope-fill footer-icon"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation -->
+                <div class="col-lg-3">
+                    <h6>Navigasi</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Tentang Kami</a></li>
+                        <li class="mb-2"><a href="#">Pembinaan Santri</a></li>
+                        <li class="mb-2"><a href="#">Pendidikan</a></li>
+                        <li class="mb-2"><a href="#">Publikasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Registration -->
+                <div class="col-lg-4">
+                    <h6>Pendaftaran Santri Baru</h6>
+                    <p class="mb-3">
+                        Bergabunglah bersama kami dan jadilah bagian dari lingkungan pendidikan yang berkualitas di Pondok Pesantren Al-Falah Putak.
+                    </p>
+                    <a href="#" class="btn btn-register">Daftar Sekarang</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-top border-light mt-4 pt-3 text-center">
+          <small>© 2025 Pondok Pesantren Al-Falah Putak. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enable hover dropdown functionality
+        document.querySelectorAll('.dropdown').forEach(function(dropdown) {
+            dropdown.addEventListener('mouseenter', function() {
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.add('show');
+                }
+            });
+            dropdown.addEventListener('mouseleave', function() {
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+    <script>
+        // Fetch berita from backend API and render
+        async function loadBerita() {
+            try {
+                const res = await fetch('/api/berita');
+                if (!res.ok) return;
+                const data = await res.json();
+                const latest = document.getElementById('news-latest');
+                const others = document.getElementById('news-others');
+                latest.innerHTML = '';
+                others.innerHTML = '';
+
+                if (!Array.isArray(data)) return;
+
+                // First item as featured smaller card(s)
+                data.slice(0, 3).forEach((b, idx) => {
+                    const col = document.createElement('div');
+                    col.className = idx === 0 ? 'col-lg-4' : 'col-lg-4';
+                    col.innerHTML = `
+                        <div class="card border-0">
+                            ${b.image ? `<img src="${b.image}" class="news-small-left-img" style="width:100%; height:160px; object-fit:cover">` : '<div style="height:160px;background:#f2f2f2"></div>'}
+                            <div class="card-body px-0">
+                                <h6 class="fw-bold mb-2">${b.title}</h6>
+                                <p class="text-muted small mb-2">${b.published_at || ''}</p>
+                                <a href="/berita/${b.slug || b.id}" class="btn btn-teal rounded-2 px-2">Lihat Selengkapnya</a>
+                            </div>
+                        </div>
+                    `;
+                    latest.appendChild(col);
+                });
+
+                data.slice(3).forEach(b => {
+                    const card = document.createElement('div');
+                    card.className = 'card border-0 mb-3';
+                    card.innerHTML = `
+                        <div class="row mb-3 g-3">
+                            <div class="col-4">
+                                ${b.image ? `<img src="${b.image}" class="news-img" style="width:100%; height:100%; object-fit:cover">` : '<div style="height:100px;background:#f2f2f2"></div>'}
+                            </div>
+                            <div class="col-8 flex-column justify-content-between">
+                                <h5 class="fw-bold">${b.title}</h5>
+                                <p class="text-news">${b.excerpt || ''}</p>
+                                <p class="text-muted small mb-2">${b.published_at || ''}</p>
+                                <a href="/berita/${b.slug || b.id}" class="btn btn-teal rounded-2 px-2">Lihat Selengkapnya</a>
+                            </div>
+                        </div>
+                    `;
+                    others.appendChild(card);
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        loadBerita();
+    </script>
+</body>
+</html>
+
