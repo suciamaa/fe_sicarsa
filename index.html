@@ -575,21 +575,390 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Enable hover dropdown functionality
-        document.querySelectorAll('.dropdown').forEach(function(dropdown) {
-            dropdown.addEventListener('mouseenter', function() {
-                const dropdownMenu = this.querySelector('.dropdown-menu');
-                if (dropdownMenu) {
-                    dropdownMenu.classList.add('show');
-                }
-            });
-            dropdown.addEventListener('mouseleave', function() {
-                const dropdownMenu = this.querySelector('.dropdown-menu');
-                if (dropdownMenu) {
-                    dropdownMenu.classList.remove('show');
-                }
-            });
+      // Enable hover dropdown functionality (desktop)
+      document.querySelectorAll('.dropdown').forEach(function(dropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          if (window.innerWidth >= 992) {
+            const dropdownMenu = this.querySelector('.dropdown-menu');
+            if (dropdownMenu) dropdownMenu.classList.add('show');
+          }
         });
+        dropdown.addEventListener('mouseleave', function() {
+          if (window.innerWidth >= 992) {
+            const dropdownMenu = this.querySelector('.dropdown-menu');
+            if (dropdownMenu) dropdownMenu.classList.remove('show');
+          }
+        });
+      });
+
+      // Inject minimal styles for floating subnav and helpers (kept in JS per request)
+      (function injectFloatingStyles(){
+        const css = `
+        .floating-subnav{position:fixed;top:68px;right:16px;width:260px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.12);z-index:2050;padding:8px;display:none}
+        .floating-subnav.open{display:block}
+        .floating-subnav .fs-close{position:absolute;right:8px;top:6px;border:none;background:transparent;font-size:22px}
+        .floating-subnav .fs-list{list-style:none;margin:0;padding:8px}
+        .floating-subnav .fs-list li{padding:10px;border-radius:8px}
+        .floating-subnav .fs-list li:hover{background:rgba(18,153,144,0.05)}
+        /* reduced gap between main submenu and its child panel */
+        .floating-subnav .fs-submenu{position:absolute;top:0;left:-240px;width:220px;background:#fff;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:8px;display:none}
+        .floating-subnav .fs-submenu.open{display:block}
+        `;
+        const s = document.createElement('style'); s.appendChild(document.createTextNode(css));
+        document.head.appendChild(s);
+      })();
+
+      // Build floating subnav from existing navbar for small screens
+      (function setupFloatingSubnav(){
+        const navbar = document.querySelector('.navbar');
+        if (!navbar) return;
+
+        // Create floating container
+        const floatWrap = document.createElement('div');
+        floatWrap.className = 'floating-subnav';
+        floatWrap.innerHTML = '<button class="fs-close" aria-label="Close">&times;</button><ul class="fs-list"></ul>';
+        document.body.appendChild(floatWrap);
+
+        const fsList = floatWrap.querySelector('.fs-list');
+        const fsClose = floatWrap.querySelector('.fs-close');
+
+        // Helper to close
+        function closeFloat(){ floatWrap.classList.remove('open'); document.removeEventListener('click', outsideHandler); }
+        fsClose.addEventListener('click', closeFloat);
+
+        // Build top-level items from .navbar-nav
+        const topItems = document.querySelectorAll('.navbar-nav > .nav-item');
+        topItems.forEach(function(item){
+          const a = item.querySelector('.nav-link');
+          if (!a) return;
+          const li = document.createElement('li');
+          li.innerHTML = '<div class="fs-item">'+a.textContent.trim()+' <span class="chev">›</span></div>';
+          fsList.appendChild(li);
+
+          const submenu = item.querySelector('.dropdown-menu');
+          if (submenu) {
+            // Create submenu panel
+            const subPanel = document.createElement('div');
+            subPanel.className = 'fs-submenu';
+            const subul = document.createElement('ul'); subul.style.listStyle='none'; subul.style.padding='0'; subul.style.margin='0';
+            Array.from(submenu.querySelectorAll('.dropdown-item')).forEach(function(si){
+              const subli = document.createElement('li');
+              const link = document.createElement('a');
+              link.href = si.getAttribute('href') || '#';
+              link.textContent = si.textContent.trim();
+              link.style.display='block'; link.style.padding='8px'; link.style.color='var(--text)'; link.style.textDecoration='none';
+              subli.appendChild(link); subul.appendChild(subli);
+            });
+            subPanel.appendChild(subul);
+            li.appendChild(subPanel);
+
+            // click to open submenu on small screens
+            li.addEventListener('click', function(e){
+              if (window.innerWidth < 992) {
+                e.stopPropagation();
+                // open floatWrap and show submenu
+                floatWrap.classList.add('open');
+                // close other submenus
+                floatWrap.querySelectorAll('.fs-submenu').forEach(s=>s.classList.remove('open'));
+                subPanel.classList.add('open');
+                // attach outside click handler
+                setTimeout(()=>document.addEventListener('click', outsideHandler), 10);
+              }
+            });
+          } else {
+            // direct link: navigate
+            li.addEventListener('click', function(){ window.location = a.getAttribute('href') || '#'; });
+          }
+        });
+
+        // outside click handler to close
+        function outsideHandler(e){ if (!floatWrap.contains(e.target)) closeFloat(); }
+
+        // toggle showing main floating when clicking a 'menu' trigger (we'll use collapsed navbar toggler if present)
+        // Add a small trigger in navbar for mobile
+        let trigger = document.getElementById('mobileFloatTrigger');
+        if (!trigger) {
+          trigger = document.createElement('button');
+          trigger.id = 'mobileFloatTrigger';
+          trigger.className = 'd-lg-none';
+          trigger.setAttribute('aria-label','Open menu');
+          trigger.style.background='transparent'; trigger.style.border='none'; trigger.style.fontSize='22px';
+          trigger.innerHTML = '<i class="bi bi-list"></i>';
+          // insert after brand
+          const brand = document.querySelector('.navbar-brand');
+          if (brand && brand.parentNode) brand.parentNode.insertBefore(trigger, brand.nextSibling);
+        }
+        trigger.addEventListener('click', function(e){
+          e.stopPropagation();
+          // toggle floatWrap open showing top-level items
+          floatWrap.classList.toggle('open');
+          // hide submenus
+          floatWrap.querySelectorAll('.fs-submenu').forEach(s=>s.classList.remove('open'));
+          if (floatWrap.classList.contains('open')) setTimeout(()=>document.addEventListener('click', outsideHandler), 10);
+        });
+      })();
+
+      // Move .btn-poster after accordion when responsive using JS only
+      (function responsiveMovePoster(){
+        const poster = document.querySelector('.btn-poster');
+        const accordion = document.getElementById('registrationAccordion');
+        if (!poster || !accordion) return;
+
+        // remember original position
+        const originalParent = poster.parentNode;
+        const originalNext = poster.nextSibling;
+
+        function moveToAccordion(){
+          // append poster after accordion (inside accordion parent column)
+          const accordionCol = accordion.closest('.col-lg-6');
+          if (accordionCol) {
+            // if a .poster-actions wrapper exists (created by other responsive code), prefer it
+            const actionsWrap = accordionCol.querySelector('.poster-actions');
+            if (actionsWrap) {
+              actionsWrap.appendChild(poster);
+              return;
+            }
+            // fallback: create a simple poster-wrapper to host the poster alone
+            if (!accordionCol.querySelector('.poster-wrapper')){
+              const wrap = document.createElement('div'); wrap.className = 'poster-wrapper mt-3 d-flex justify-content-center';
+              accordionCol.appendChild(wrap);
+            }
+            const wrap = accordionCol.querySelector('.poster-wrapper');
+            wrap.appendChild(poster);
+          }
+        }
+
+        function restoreOriginal(){
+          if (originalParent) {
+            if (originalNext) originalParent.insertBefore(poster, originalNext);
+            else originalParent.appendChild(poster);
+            // remove empty wrappers if any
+            const pParent = poster.parentNode;
+            if (pParent && (pParent.classList.contains('poster-wrapper') || pParent.classList.contains('poster-actions')) && pParent.children.length === 1) {
+              pParent.parentNode && pParent.parentNode.removeChild(pParent);
+            }
+          }
+        }
+
+        function check(){
+          if (window.innerWidth < 992) moveToAccordion(); else restoreOriginal();
+        }
+
+        window.addEventListener('resize', check);
+        window.addEventListener('orientationchange', check);
+        document.addEventListener('DOMContentLoaded', check);
+        // run now
+        check();
+      })();
+
+      // Responsive adjustments applied via JS only
+      (function responsiveAdjustments(){
+        // Inject padding for section containers and hero (24px left/right)
+        (function injectPadding(){
+          const css = `
+            .section-container, .hero, .floating-stats-container, .help-section { padding-left: 24px !important; padding-right: 24px !important; }
+          `;
+          const s = document.createElement('style'); s.appendChild(document.createTextNode(css)); document.head.appendChild(s);
+        })();
+
+        // ----- keunggulan-card: on small screens make columns col-4 -----
+        const cols = Array.from(document.querySelectorAll('.keunggulan-card')).map(card => ({
+          col: card.parentElement,
+          originalClass: card.parentElement ? card.parentElement.className : ''
+        }));
+
+        function adjustKeunggulan(){
+          // Responsive: two cards per row on small/medium screens
+          if (window.innerWidth < 992) {
+            cols.forEach(obj => { if (obj.col) obj.col.className = 'col-6'; });
+          } else {
+            cols.forEach(obj => { if (obj.col) obj.col.className = obj.originalClass; });
+          }
+        }
+
+        window.addEventListener('resize', adjustKeunggulan);
+        window.addEventListener('orientationchange', adjustKeunggulan);
+        document.addEventListener('DOMContentLoaded', adjustKeunggulan);
+        adjustKeunggulan();
+
+        // Ensure original registration button container does not wrap (keeps buttons side-by-side)
+        (function forceNoWrapOnRegistration(){
+          const regSection = document.getElementById('pendaftaran');
+          if (!regSection) return;
+          // find a container that directly contains both buttons
+          const primary = regSection.querySelector('.btn.btn-primary');
+          const poster = regSection.querySelector('.btn-poster');
+          if (!primary || !poster) return;
+          let container = primary.parentElement;
+          // if the immediate parent does not contain both, search upwards
+          while (container && !container.contains(poster)) container = container.parentElement;
+          if (!container) return;
+          // Apply non-wrapping flex styles
+          container.style.display = 'flex';
+          container.style.gap = '12px';
+          container.style.flexWrap = 'nowrap';
+          container.style.alignItems = 'center';
+          // ensure buttons keep their original order: primary then poster
+          if (primary && poster && primary.nextElementSibling !== poster) container.insertBefore(poster, null);
+        })();
+
+        // ----- Move both primary + poster buttons under accordion on small screens and center them side-by-side -----
+        const regSection = document.getElementById('pendaftaran');
+        if (regSection){
+          const leftCol = regSection.querySelector('.row > .col-lg-6');
+          const accordion = regSection.querySelector('#registrationAccordion');
+          const primaryBtn = leftCol ? leftCol.querySelector('.btn.btn-primary') : null;
+          const posterBtn = leftCol ? leftCol.querySelector('.btn-poster') : null;
+          const originalLeft = leftCol ? {parent:leftCol, next: (posterBtn?posterBtn.nextSibling:null)} : null;
+
+          function moveBtns(){
+            if (!accordion) return;
+            const accordionCol = accordion.closest('.col-lg-6');
+            if (window.innerWidth < 992) {
+              if (accordionCol && !accordionCol.querySelector('.poster-actions')){
+                const wrap = document.createElement('div'); wrap.className = 'poster-actions d-flex gap-3 mt-3 flex-nowrap justify-content-center align-items-center'; wrap.style.width = '100%';
+                accordionCol.appendChild(wrap);
+              }
+              const wrap = accordionCol.querySelector('.poster-actions');
+              if (wrap){
+                // ensure primary then poster order
+                if (primaryBtn && primaryBtn.parentNode !== wrap) wrap.appendChild(primaryBtn);
+                if (posterBtn && posterBtn.parentNode !== wrap) wrap.appendChild(posterBtn);
+                // ensure primary appears before poster
+                if (primaryBtn && posterBtn && primaryBtn.nextSibling !== posterBtn) wrap.insertBefore(posterBtn, null);
+              }
+            } else {
+              // restore original position inside left column
+              if (originalLeft && originalLeft.parent){
+                if (primaryBtn && primaryBtn.parentNode !== originalLeft.parent){ originalLeft.parent.insertBefore(primaryBtn, originalLeft.next || null); }
+                if (posterBtn && posterBtn.parentNode !== originalLeft.parent){
+                  if (originalLeft.next) originalLeft.parent.insertBefore(posterBtn, originalLeft.next);
+                  else originalLeft.parent.appendChild(posterBtn);
+                }
+                // remove wrapper if exists
+                const wrap = accordion.closest('.col-lg-6') ? accordion.closest('.col-lg-6').querySelector('.poster-actions') : null;
+                if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+              }
+            }
+          }
+
+          window.addEventListener('resize', moveBtns);
+          window.addEventListener('orientationchange', moveBtns);
+          document.addEventListener('DOMContentLoaded', moveBtns);
+          moveBtns();
+        }
+
+        // ----- Move help-illustration above text on small screens (SAFE & ISOLATED) -----
+        (function moveHelpIllustration(){
+          const help = document.querySelector('.help-section');
+          if (!help) return;
+
+          const img = help.querySelector('.help-illustration');
+          if (!img) return;
+
+          function reorder(){
+            if (window.innerWidth < 992) {
+              // Mobile: pindahkan image ke paling atas
+              if (img !== help.firstElementChild) {
+                help.insertBefore(img, help.firstElementChild);
+              }
+            } else {
+              // Desktop: pastikan image ada di akhir (kanan)
+              if (img !== help.lastElementChild) {
+                help.appendChild(img);
+              }
+            }
+          }
+
+          window.addEventListener('resize', reorder);
+          window.addEventListener('orientationchange', reorder);
+          document.addEventListener('DOMContentLoaded', reorder);
+          reorder();
+        })();
+
+
+        // ----- Testimonial slider only on small screens (dynamic) -----
+        (function testimonialResponsiveSlider(){
+          const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+          if (!cards.length) return;
+          const row = cards[0].closest('.row');
+          if (!row) return;
+
+          // store original nodes
+          const originalHTML = row.innerHTML;
+          let slider = null;
+          let interval = null;
+
+          function createSlider(){
+            if (slider) return;
+            slider = document.createElement('div'); slider.className = 'ts-slider';
+            const track = document.createElement('div'); track.className = 'ts-track';
+
+            // Clone testimonial cards into slides to avoid removing original DOM nodes
+            cards.forEach(card => {
+              const slide = document.createElement('div'); slide.className = 'ts-slide';
+              const clone = card.cloneNode(true);
+              slide.appendChild(clone);
+              track.appendChild(slide);
+            });
+            slider.appendChild(track);
+            // dots
+            const dots = document.createElement('div'); dots.className='ts-dots';
+            for (let i=0;i<cards.length;i++){ const b=document.createElement('button'); b.className='ts-dot'; b.dataset.index=i; dots.appendChild(b); }
+            slider.appendChild(dots);
+
+            // inject minimal styles (scoped enough)
+            const css = `
+              .ts-slider{position:relative;overflow:hidden}
+              .ts-track{display:flex;transition:transform .45s ease}
+              .ts-slide{min-width:100%;box-sizing:border-box;padding:0 8px}
+              .ts-dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+              .ts-dot{width:10px;height:10px;border-radius:50%;background:#ddd;border:none}
+              .ts-dot.active{background:var(--primary500)}
+            `;
+            const s = document.createElement('style'); s.appendChild(document.createTextNode(css)); document.head.appendChild(s);
+
+            // hide original row (keep DOM intact) and insert slider after it
+            row.style.display = 'none';
+            row.parentNode.insertBefore(slider, row.nextSibling);
+
+            let current = 0;
+            const slides = Array.from(track.children);
+            const dotButtons = Array.from(dots.children);
+
+            function update(){ track.style.transform = `translateX(-${current*100}%)`; dotButtons.forEach((d,i)=>d.classList.toggle('active', i===current)); }
+            dotButtons.forEach(d=>d.addEventListener('click', ()=>{ current = parseInt(d.dataset.index); update(); restart(); }));
+
+            function next(){ current = (current+1) % slides.length; update(); }
+            function start(){ interval = setInterval(next, 3500); }
+            function restart(){ clearInterval(interval); start(); }
+
+            // swipe
+            let startX=0,delta=0,down=false;
+            track.addEventListener('pointerdown', e=>{ down=true; startX=e.clientX; track.style.transition='none'; clearInterval(interval); });
+            track.addEventListener('pointermove', e=>{ if(!down) return; delta = e.clientX - startX; track.style.transform = `translateX(calc(-${current*100}% + ${delta}px))`; });
+            function endPointer(){ if(!down) return; down=false; track.style.transition=''; if(Math.abs(delta)>50){ if(delta<0) current=(current+1)%slides.length; else current=(current-1+slides.length)%slides.length; } update(); startX=0; delta=0; restart(); }
+            track.addEventListener('pointerup', endPointer);
+            track.addEventListener('pointercancel', endPointer);
+            track.addEventListener('pointerleave', endPointer);
+
+            update(); start();
+          }
+
+          function destroySlider(){
+            if (!slider) return;
+            clearInterval(interval);
+            // remove slider element and show original row
+            slider.parentNode && slider.parentNode.removeChild(slider);
+            row.style.display = '';
+            slider = null;
+          }
+
+          function check(){ if (window.innerWidth < 992) createSlider(); else destroySlider(); }
+          window.addEventListener('resize', check); window.addEventListener('orientationchange', check); document.addEventListener('DOMContentLoaded', check); check();
+        })();
+
+      })();
     </script>
   </body>
 </html>
